@@ -66,12 +66,12 @@ button:hover {
             if (hasAccess) {
 
               // Si se tiene acceso al storage se redirecciona al web component con normalidad
-              window.location.href = "https://portal.onid.us/wa/auth?authmech=OnID+Password&do=login&username=fabricio&password=v%5CwqV7p%26xL%2Ct%3EyIe5gOM&cbval_vendorBase64=AAAk%2FwMGAAAAAQ%3D%3D&Submit1=Yes&&location=https%3a%2f%2fwebcomponentpsv.onid.us%2f";
+              SendMessage("ok")
             } else {
               if(!CookieExists(COOKIE_NAME)){
 
                 // Si la cookie no existe se redirecciona a los pasos a seguir
-                SendMessage("https://jandro15951.github.io/TestCookie/Steps.html")
+                SendMessage("steps")
               }else{
                 // Si la cookie existe, mostramos el modal para aceptar el storage
                 ShowModal();
