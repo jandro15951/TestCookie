@@ -21,7 +21,7 @@
 
         function SetCookie(){
                 document.cookie = `${COOKIE_NAME}=testValue; path=/; SameSite=None; Secure`; 
-                window.location.href = REDIRECT;
+                window.location.href = `${REDIRECT}?step=1`;
       }
 
       function GetParam(paramName){
