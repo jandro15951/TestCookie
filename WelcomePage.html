@@ -75,6 +75,7 @@ HasPermission();
                 // Si la cookie no existe se redirecciona a los pasos a seguir
                 SendMessage("steps")
               }else{
+                  SendMessage("Se muestra el modal");
                 // Si la cookie existe, mostramos el modal para aceptar el storage
                 ShowModal();
 
