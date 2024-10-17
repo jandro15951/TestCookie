@@ -69,6 +69,7 @@ HasPermission();
               // Si se tiene acceso al storage se redirecciona al web component con normalidad
               SendMessage("ok")
             } else {
+                SendMessage(STEP);
               if(!STEP == "1"){
 
                 // Si la cookie no existe se redirecciona a los pasos a seguir
