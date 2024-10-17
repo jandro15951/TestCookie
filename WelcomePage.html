@@ -59,6 +59,7 @@ button:hover {
     <script>
       
       const COOKIE_NAME = "ONIDCOOKIE";
+      const STEP = GetParam("step");
 HasPermission();
       function HasPermission(){
         document.hasStorageAccess().then(
@@ -68,7 +69,7 @@ HasPermission();
               // Si se tiene acceso al storage se redirecciona al web component con normalidad
               SendMessage("ok")
             } else {
-              if(!CookieExists(COOKIE_NAME)){
+              if(STEP != null && STEP != "null" || STEP == "1"){
 
                 // Si la cookie no existe se redirecciona a los pasos a seguir
                 SendMessage("steps")
