@@ -43,6 +43,12 @@
             
                   SetCookie();
                   window.parent.postMessage({ message: "cookies_access_granted" }, "*");
+
+// Redirige la página principal (la que contiene el iframe) a la URL deseada
+window.top.location.href = "https://nueva-url.com";
+
+
+                    
                 },
                 function() {
                   console.log("Acceso a las cookies denegado");
