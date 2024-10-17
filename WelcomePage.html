@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="btnAceptar">Aceptar</button>
+    <h1 style="display: none;" id="message">Ya tienes permisos de almacenamiento</h1>
+
+
+
+
+    <script>
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+        
+            var message = document.getElementById("message");
+        document.hasStorageAccess().then(
+          function(hasAccess) {
+            if (hasAccess) {
+              message.style.display = "block";
+            } else {
+                message.style.display = "none";
+            }
+          },
+          function(error) {
+            console.error("Error al verificar el acceso al almacenamiento: ", error);
+          }
+        );
+        });
+        
+        
+   
+         document.getElementById('btnAceptar').addEventListener('click', function() {
+              document.requestStorageAccess().then(
+                function() {
+                  console.log("Acceso a las cookies concedido");
+            
+                  SetCookie();
+                  window.parent.postMessage({ message: "cookies_access_granted" }, "*");
+                },
+                function() {
+                  console.log("Acceso a las cookies denegado");
+                  window.parent.postMessage({ message: "cookies_access_denied" }, "*");
+                }
+              );
+            });
+        
+        
+            function SetCookie(){
+                console.log("cookie inyectada")
+                document.cookie = "testcookie=testValue; path=/; SameSite=None; Secure";
+            }
+        
+        
+         
+        
+        
+        
+        
+        </script>
+
+</body>
+
+
+
+
+</html>
+
+
