@@ -8,13 +8,23 @@
 <body>
     
     <button id="btnAceptar">Aceptar</button>
-    <h1 style="display: none;" id="message">Ya tienes permisos de almacenamiento  v2</h1>
+    <button id="btnCookie">Inyectar cookie</button>
+    <h1 style="display: none;" id="message">Ya tienes permisos de almacenamiento</h1>
 
 
 
 
     <script>
 
+
+    const REDIRECT = GetParam();
+      function GetParam(){
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const url = urlParams.get('backUrl');
+
+        return url;
+      }
 
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -26,6 +36,7 @@
               message.style.display = "block";
             } else {
                 message.style.display = "none";
+                SendMessage(window.location.href)
             }
           },
           function(error) {
@@ -34,7 +45,26 @@
         );
         });
         
-        
+        document.getElementById('btnCookie').addEventListener('click', function() {
+             SetCookie();
+
+
+
+             document.hasStorageAccess().then(
+          function(hasAccess) {
+            if (hasAccess) {
+             console.log("cookie inyectada")
+            } else {
+              console.log("cookie no inyectada")
+            }
+          },
+          function(error) {
+            console.error("Error al verificar el acceso al almacenamiento: ", error);
+          }
+        );
+
+             
+            });
    
          document.getElementById('btnAceptar').addEventListener('click', function() {
               document.requestStorageAccess().then(
@@ -42,17 +72,12 @@
                   console.log("Acceso a las cookies concedido");
             
                   SetCookie();
-                  window.parent.postMessage({ message: "cookies_access_granted" }, "*");
-
-// Redirige la página principal (la que contiene el iframe) a la URL deseada
-window.top.location.href = "https://nueva-url.com";
-
-
-                    
+                  SendMessage("cookies_access_granted")
+                  window.location.href = REDIRECT;
                 },
                 function() {
                   console.log("Acceso a las cookies denegado");
-                  window.parent.postMessage({ message: "cookies_access_denied" }, "*");
+                  SendMessage("cookies_access_denied")
                 }
               );
             });
@@ -64,6 +89,11 @@ window.top.location.href = "https://nueva-url.com";
             }
         
         
+
+
+            function SendMessage(messagePost){
+              window.parent.postMessage({ message: messagePost }, "*");
+            }
          
         
         
